@@ -1,4 +1,5 @@
 #import "SVGTextElement.h"
+#import "CATextLayerWithHitTest.h"
 
 #import <CoreText/CoreText.h>
 
@@ -91,7 +92,7 @@
 											  suggestedUntransformedSize.width,
 											  suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
 	
-    CATextLayer *label = [[CATextLayer alloc] init];
+    CATextLayerWithHitTest *label = [[CATextLayerWithHitTest alloc] init];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
 	
     label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
@@ -141,6 +142,8 @@
 	label.borderColor = [UIColor redColor].CGColor;
 	//DEBUG: NSLog(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
 	*/
+    
+    label.contentsScale = [[UIScreen mainScreen] scale];
 	
     return label;
 }
