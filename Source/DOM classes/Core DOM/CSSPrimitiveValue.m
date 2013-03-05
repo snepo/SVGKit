@@ -22,6 +22,11 @@
 
 @synthesize primitiveType;
 
+- (void)dealloc {
+    self.internalString = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];
@@ -53,7 +58,7 @@
 				return self.internalValue;
 			else
 			{
-				NSAssert( FALSE, @"Asked to convert a UNKNONW value to a different type (%i)", unitType );
+				NSAssert( FALSE, @"Asked to convert a UNKNOWN value to a different type (%i)", unitType );
 			}
 		}
 			
